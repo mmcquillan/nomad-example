@@ -1,0 +1,28 @@
+job "hello-world" {
+  type = "service"
+  datacenters = ["ExampleLand"]
+  update {
+    stagger      = "30s"
+    max_parallel = 1
+    canary       = 1
+  }
+  group "web" {
+    count = 2
+    task "nginx" {
+      driver = "docker"
+      config {
+        image = "nginx"
+        port_map = {
+          my_web = 80
+        }
+      }
+      resources {
+        network {
+          port "my_web" {
+            static = 8080
+          }
+        }
+      }
+    }
+  }
+}
