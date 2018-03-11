@@ -1,0 +1,16 @@
+job "test" {
+  type = "service"
+  datacenters = ["dc1"]
+  group "test" {
+    task "spew" {
+      driver = "docker"
+      config {
+        image = "mmcquillan/spew"
+      }
+      env {
+        SPEW_OUT = "testing nomad"
+        SPEW_INTERVAL = "3s"
+      }
+    }
+  }
+}

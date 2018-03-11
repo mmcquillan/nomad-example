@@ -1,0 +1,16 @@
+{
+  "test" {
+  type = "service"
+  datacenters = ["dc1"]
+  group "test" {
+    task "spew" {
+      driver = "exec"
+      config {
+        command = "spew"
+      }
+      artifact {
+        source = "https://github.com/mmcquillan/spew/releases/download/v0.1/spew"
+      }
+    }
+  }
+}

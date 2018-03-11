@@ -1,6 +1,6 @@
 job "hello-world" {
   type = "service"
-  datacenters = ["ExampleLand"]
+  datacenters = ["dc1"]
   update {
     stagger      = "30s"
     max_parallel = 1

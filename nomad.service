@@ -1,0 +1,14 @@
+[Unit]
+Description=Nomad
+Documentation=https://nomadproject.io/docs/
+
+[Service]
+### ExecStart=/usr/local/bin/nomad agent -config /etc/nomad
+ExecStart=/usr/local/bin/nomad agent -dev
+StandardOutput=/var/log/nomad.log
+StandardError=/var/log/nomad.log
+ExecReload=/bin/kill -HUP $MAINPID
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
