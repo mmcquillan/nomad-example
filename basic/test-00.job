@@ -1,5 +1,4 @@
-{
-  "test" {
+job "test" {
   type = "service"
   datacenters = ["dc1"]
   group "test" {

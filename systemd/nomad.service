@@ -3,10 +3,7 @@ Description=Nomad
 Documentation=https://nomadproject.io/docs/
 
 [Service]
-### ExecStart=/usr/local/bin/nomad agent -config /etc/nomad
-ExecStart=/usr/local/bin/nomad agent -dev
-StandardOutput=/var/log/nomad.log
-StandardError=/var/log/nomad.log
+ExecStart=/usr/local/bin/nomad agent -dev -bind="0.0.0.0"
 ExecReload=/bin/kill -HUP $MAINPID
 LimitNOFILE=65536
 
