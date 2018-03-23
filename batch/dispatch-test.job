@@ -1,0 +1,29 @@
+job "dispatch-test" {
+  datacenters = ["dc1"]
+  type = "batch"
+
+  parameterized {
+    payload = "required"
+  }
+
+  group "dispatch-test" {
+    task "dispatch-test" {
+      driver = "exec"
+      config {
+        command = "increment"
+        args = ["/local/add"]
+      }
+      artifact {
+        source = "https://github.com/mmcquillan/increment/releases/download/v0.1/increment.tar.gz"
+      }
+      env {
+        INCREMENT_KEY = "test/counter"
+      }
+
+      dispatch_payload {
+        file = "add"
+      }
+
+    }
+  }
+}

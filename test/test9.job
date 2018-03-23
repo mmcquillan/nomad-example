@@ -7,7 +7,7 @@ job "test" {
   }
   constraint {
     attribute = "${attr.kernel.name}"
-    value     = "linux"
+    value     = "windows" #linux
   }
   group "test" {
     count = 3

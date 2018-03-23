@@ -1,11 +1,12 @@
-job "test" {
+job "docker" {
   type = "service"
   datacenters = ["dc1"]
-  group "test" {
+  group "docker" {
     task "spew" {
       driver = "docker"
       config {
         image = "mmcquillan/spew"
+        command = "spew"
       }
       env {
         SPEW_OUT = "testing nomad"

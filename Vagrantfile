@@ -10,6 +10,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # port for the host
   config.vm.network "forwarded_port", guest: 4646, host: 4646, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 9998, host: 9998, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 9999, host: 9999, host_ip: "127.0.0.1"
 
   # disable logs and increase resources
   config.vm.provider "virtualbox" do |vb|
@@ -39,5 +41,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", inline: "unzip /tmp/nomad.zip -d /usr/local/bin/"
   config.vm.provision "shell", inline: "cp /vagrant/systemd/nomad.service /etc/systemd/system/nomad.service"
   config.vm.provision "shell", inline: "systemctl daemon-reload && systemctl start nomad.service"
+
+
+	### TEMP
+  config.vm.provision "shell", inline: "wget -q -O /tmp/go.tar.gz https://dl.google.com/go/go1.9.4.linux-amd64.tar.gz"
+  config.vm.provision "shell", inline: "tar -C /usr/local -xzf /tmp/go.tar.gz"
+  config.vm.provision "shell", inline: "echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/go.sh"
+  config.vm.provision "shell", inline: "echo 'export GOPATH=/code/go' >> /home/vagrant/.profile"
+  config.vm.synced_folder "../", "/code"
+
 
 end

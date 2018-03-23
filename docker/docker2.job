@@ -6,6 +6,8 @@ job "docker" {
       driver = "docker"
       config {
         image = "mmcquillan/spew"
+        command = "spew"
+        args = ["XYZ"]
       }
       env {
         SPEW_OUT = "testing nomad"

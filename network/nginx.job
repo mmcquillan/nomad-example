@@ -1,0 +1,32 @@
+job "nginx" {
+  type = "service"
+  datacenters = ["dc1"]
+  group "nginx" {
+    task "nginx" {
+      driver = "docker"
+      config {
+        image = "nginx"
+        port_map {
+          http = 80
+        }
+      }
+      service {
+        name = "nginx"
+        tags = ["test","urlprefix-/"]
+        port = "http"
+        check {
+          name = "alive"
+          type = "http"
+          interval = "10s"
+          timeout = "3s"
+          path = "/"
+        }
+      }
+      resources {
+        network {
+          port "http" {}
+        }
+      }
+    }
+  }
+}

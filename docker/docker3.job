@@ -1,0 +1,22 @@
+job "docker" {
+  type = "service"
+  datacenters = ["dc1"]
+  group "docker" {
+    task "spew" {
+      driver = "docker"
+      config {
+        image = "mmcquillan/spew"
+        command = "spew"
+        args = ["XYZ"]
+      }
+      template {
+        destination = "secrets/file.env"
+        env         = true
+        data = <<EOH
+SPEW_OUT = "{{key `test/message`}}"
+SPEW_INTERVAL = "3s"
+EOH
+      }
+    }
+  }
+}
