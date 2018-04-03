@@ -1,0 +1,25 @@
+job "basic" {
+  type = "service"
+  datacenters = ["dc1"]
+  meta {
+    // meta value that the nomad bot understands
+    "nomad.bot.acl" = "command,matt"
+  }
+  group "basic" {
+    count = 1
+    task "basic" {
+      driver = "exec"
+      config {
+        command = "spew"
+        args    = ["ABC"]
+      }
+      artifact {
+        source = "https://github.com/mmcquillan/spew/releases/download/v0.1/spew.tar.gz"
+      }
+      env {
+        SPEW_OUT = "testing nomad"
+        SPEW_INTERVAL = "3s"
+      }
+    }
+  }
+}

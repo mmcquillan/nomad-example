@@ -1,0 +1,29 @@
+job "deploy-version-test" {
+  type = "service"
+  datacenters = ["dc1"]
+  update {
+    max_parallel     = 1
+    stagger          = "10s"
+  }
+  constraint {
+    attribute = "${attr.kernel.name}"
+    value     = "linux" #linux
+  }
+  group "deploy-version.test" {
+    count = 3
+    task "deploy-version-test" {
+      driver = "exec"
+      config {
+        command = "spew"
+        args    = ["${NOMAD_TASK_NAME}"]
+      }
+      artifact {
+        source = "https://github.com/mmcquillan/spew/releases/download/${nomad.bot.arg.version}/spew.tar.gz"
+      }
+      env {
+        SPEW_OUT = "testing nomad"
+        SPEW_INTERVAL = "3s"
+      }
+    }
+  }
+}

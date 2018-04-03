@@ -1,0 +1,24 @@
+job "periodic-test" {
+  datacenters = ["dc1"]
+  type = "batch"
+
+  periodic {
+    cron = "*/1 * * * * *"
+    prohibit_overlap = true
+  }
+
+  group "periodic-test" {
+    task "periodic-test" {
+      driver = "exec"
+      config {
+        command = "increment"
+      }
+      artifact {
+        source = "https://github.com/mmcquillan/increment/releases/download/v0.1/increment.tar.gz"
+      }
+      env {
+        INCREMENT_KEY = "test/counter"
+      }
+    }
+  }
+}

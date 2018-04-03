@@ -1,0 +1,29 @@
+job "validate-test" {
+  type = "service"
+  datacenters = ["dc1"]
+  update {
+    max_parallel     = 1
+    stagger          = "10s"
+  }
+  constraint {
+    attribute = "${attr.kernel.name}"
+    value     = "windows"
+  }
+  group "validate-test" {
+    count = 3
+    task "validate-test" {
+      driver = "exec"
+      config {
+        command = "spew"
+        args    = ["ABC"]
+      }
+      artifact {
+        source = "https://github.com/mmcquillan/spew/releases/download/v0.1/spew.tar.gz"
+      }
+      env {
+        SPEW_OUT = "testing nomad"
+        SPEW_INTERVAL = "3s"
+      }
+    }
+  }
+}
