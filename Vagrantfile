@@ -42,5 +42,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", inline: "cp /vagrant/systemd/nomad.service /etc/systemd/system/nomad.service"
   config.vm.provision "shell", inline: "systemctl daemon-reload && systemctl start nomad.service"
 
+	# Go
+  config.vm.provision "shell", inline: "wget -q -O /tmp/go.tar.gz https://dl.google.com/go/go1.9.4.linux-amd64.tar.gz"
+  config.vm.provision "shell", inline: "tar -C /usr/local -xzf /tmp/go.tar.gz"
+  config.vm.provision "shell", inline: "echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/go.sh"
+  config.vm.provision "shell", inline: "echo 'export GOPATH=/code/go' >> /home/vagrant/.profile"
+  config.vm.synced_folder ENV['GOPATH'], "/code/go"
 
 end
