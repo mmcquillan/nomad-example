@@ -10,7 +10,7 @@ job "basic" {
         args    = ["ABC"]
       }
       artifact {
-        source = "https://github.com/mmcquillan/spew/releases/download/v0.1/spew.tar.gz"
+        source = "https://github.com/mmcquillan/spew/releases/download/v0.2/spew.tar.gz"
       }
       env {
         SPEW_OUT = "testing nomad"
