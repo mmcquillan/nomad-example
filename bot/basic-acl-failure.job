@@ -2,8 +2,8 @@ job "basic" {
   type = "service"
   datacenters = ["dc1"]
   meta {
-    // meta value that the nomad bot understands
-    "nomad.bot.acl" = "abc,xyz"
+    // meta value that waffles understands
+    "waffles.acl" = "abc,xyz"
   }
   group "basic" {
     count = 1

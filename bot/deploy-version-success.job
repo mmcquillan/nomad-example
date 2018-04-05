@@ -18,7 +18,7 @@ job "deploy-version-test" {
         args    = ["${NOMAD_TASK_NAME}"]
       }
       artifact {
-        source = "https://github.com/mmcquillan/spew/releases/download/${nomad.bot.arg.version}/spew.tar.gz"
+        source = "https://github.com/mmcquillan/spew/releases/download/${waffles.arg.version}/spew.tar.gz"
       }
       env {
         SPEW_OUT = "testing nomad"

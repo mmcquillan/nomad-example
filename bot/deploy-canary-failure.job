@@ -2,8 +2,8 @@ job "deploy-test" {
   type = "service"
   datacenters = ["dc1"]
   meta {
-    // meta value that the nomad bot understands
-    "nomad.bot.wait" = "30s"
+    // meta value that waffles understands
+    "waffles.wait" = "30s"
   }
   update {
     max_parallel     = 1
