@@ -1,6 +1,10 @@
 job "basic" {
   type = "service"
   datacenters = ["dc1"]
+  meta {
+    // meta value that the nomad bot understands
+    "nomad.bot.wait" = "30s"
+  }
   group "basic" {
     count = 1
     task "basic" {
