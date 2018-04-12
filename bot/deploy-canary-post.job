@@ -1,0 +1,34 @@
+job "deploy-test" {
+  type = "service"
+  datacenters = ["dc1"]
+  update {
+    max_parallel     = 1
+    stagger          = "10s"
+    canary           = 1
+  }
+  meta {
+    // meta value that waffles understands
+    "waffles.post.url" = "http://localhost:34567"
+    "waffles.post.type" = "application/json"
+    "waffles.post.deploy" = "{\"text\":\"Deploy of ${waffles.arg.job}\"}"
+    "waffles.post.promote" = "{\"text\":\"Promote of ${waffles.arg.job}\"}"
+    "waffles.post.revert" = "{\"text\":\"Revert of ${waffles.arg.job}\"}"
+  }
+  group "deploy-test" {
+    count = 2
+    task "deploy-test" {
+      driver = "exec"
+      config {
+        command = "spew"
+        args    = ["DEPLOY"]
+      }
+      artifact {
+        source = "https://github.com/mmcquillan/spew/releases/download/v0.1/spew.tar.gz"
+      }
+      env {
+        SPEW_OUT = "testing nomad deploys"
+        SPEW_INTERVAL = "15s"
+      }
+    }
+  }
+}
