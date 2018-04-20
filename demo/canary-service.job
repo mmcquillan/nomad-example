@@ -1,0 +1,26 @@
+job "canary-service" {
+  type = "service"
+  datacenters = ["dc1"]
+  update {
+    max_parallel     = 1
+    stagger          = "10s"
+    canary           = 1
+  }
+  group "canary-service" {
+    count = 2
+    task "canary-service" {
+      driver = "exec"
+      config {
+        command = "spew"
+        args    = ["DEPLOY"]
+      }
+      artifact {
+        source = "https://github.com/mmcquillan/spew/releases/download/v0.1/spew.tar.gz"
+      }
+      env {
+        SPEW_OUT = "testing nomad deploys"
+        SPEW_INTERVAL = "15s"
+      }
+    }
+  }
+}
