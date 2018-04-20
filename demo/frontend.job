@@ -8,12 +8,9 @@ job "frontend" {
   }
   meta {
     // meta value that waffles understands
-    "waffles.post.url" = "http://localhost:34567"
+    "waffles.post.url" = "https://api.datadoghq.com/api/v1/events?api_key=${DATADOG_KEY}"
     "waffles.post.type" = "application/json"
-    "waffles.post.deploy" = "{\"text\":\"Deploy of ${waffles.arg.job}\"}"
-    "waffles.post.promote" = "{\"text\":\"Promote of ${waffles.arg.job}\"}"
-    "waffles.post.revert" = "{\"text\":\"Revert of ${waffles.arg.job}\"}"
-  }
+    "waffles.post.deploy" = "{\"title\":\"Waffles Deploy\",\"text\":\"Deploy of ${waffles.arg.job} version ${waffles.arg.version}\",\"priority\":\"normal\",\"tags\": [\"datacenter:staging\"],\"alert_type\":\"info\"}"}
   group "frontend" {
     count = 2
     task "frontend" {
