@@ -4,7 +4,6 @@ job "frontend" {
   update {
     max_parallel     = 1
     stagger          = "10s"
-    canary           = 1
   }
   meta {
     // meta value that waffles understands
@@ -12,7 +11,7 @@ job "frontend" {
     "waffles.post.type" = "application/json"
     "waffles.post.deploy" = "{\"title\":\"Waffles Deploy\",\"text\":\"Deploy of ${waffles.arg.job} version ${waffles.arg.version}\",\"priority\":\"normal\",\"tags\": [\"datacenter:staging\"],\"alert_type\":\"info\"}"}
   group "frontend" {
-    count = 2
+    count = 1
     task "frontend" {
       driver = "exec"
       config {
