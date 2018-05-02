@@ -13,7 +13,7 @@ job "basic" {
         source = "https://github.com/mmcquillan/spew/releases/download/v0.1/spew.tar.gz"
       }
       env {
-        SPEW_OUT = "testing nomad"
+        SPEW_OUT = "testing nomad ${NOMAD_TASK_NAME}"
         SPEW_INTERVAL = "3s"
       }
     }
