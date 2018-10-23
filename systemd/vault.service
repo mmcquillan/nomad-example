@@ -1,0 +1,11 @@
+[Unit]
+Description=Vault
+Documentation=https://www.vaultproject.io/docs/
+
+[Service]
+ExecStart=/usr/local/bin/vault server -dev -bind="0.0.0.0"
+ExecReload=/bin/kill -HUP $MAINPID
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

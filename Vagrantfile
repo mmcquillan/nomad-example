@@ -36,13 +36,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", inline: "cp /vagrant/systemd/consul.service /etc/systemd/system/consul.service"
   config.vm.provision "shell", inline: "systemctl daemon-reload && systemctl start consul.service"
 
+  # Vault
+  config.vm.provision "shell", inline: "wget -q -O /tmp/vault.zip https://releases.hashicorp.com/vault/0.10.4/vault_0.10.4_linux_amd64.zip"
+  config.vm.provision "shell", inline: "unzip /tmp/vault.zip -d /usr/local/bin/"
+  #config.vm.provision "shell", inline: "cp /vagrant/systemd/vault.service /etc/systemd/system/vault.service"
+  #config.vm.provision "shell", inline: "systemctl daemon-reload && systemctl start vault.service"
+
   # Nomad
   config.vm.provision "shell", inline: "wget -q -O /tmp/nomad.zip https://releases.hashicorp.com/nomad/0.7.1/nomad_0.7.1_linux_amd64.zip"
   config.vm.provision "shell", inline: "unzip /tmp/nomad.zip -d /usr/local/bin/"
   config.vm.provision "shell", inline: "cp /vagrant/systemd/nomad.service /etc/systemd/system/nomad.service"
   config.vm.provision "shell", inline: "systemctl daemon-reload && systemctl start nomad.service"
 
-	# Go
+  # Go
   config.vm.provision "shell", inline: "wget -q -O /tmp/go.tar.gz https://dl.google.com/go/go1.9.4.linux-amd64.tar.gz"
   config.vm.provision "shell", inline: "tar -C /usr/local -xzf /tmp/go.tar.gz"
   config.vm.provision "shell", inline: "echo 'export PATH=$PATH:/usr/local/go/bin' > /etc/profile.d/go.sh"
